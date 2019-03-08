@@ -64,7 +64,7 @@ public class HeartChartActivity extends AppCompatActivity implements
             bleDevice = (BleDevice) extras.getParcelable("BleDevice");
             connectToDevice(bleDevice);
 
-            setTitle("Heart Chart from HRM Bluetooth: -- "+bleDevice.getName());
+            setTitle("Heart Chart from HRM Bluetooth");
         }
         else {
             mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
@@ -311,7 +311,9 @@ public class HeartChartActivity extends AppCompatActivity implements
                                         Log.e("----","----"+heartRate);
                                         addEntry(heartRate);
                                         Toast.makeText(HeartChartActivity.this, getString(R.string.heart_rate)+heartRate, Toast.LENGTH_LONG).show();
-
+                                        Description description = new Description();
+                                        description.setText("Current heart rate:--"+heartRate + "--- Connected Device name--"+bleDevice.getName());
+                                        mLineChart.setDescription(description);
                                     }
                                 });
                             }
