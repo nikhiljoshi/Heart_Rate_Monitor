@@ -64,7 +64,7 @@ public class HeartChartActivity extends AppCompatActivity implements
             bleDevice = (BleDevice) extras.getParcelable("BleDevice");
             connectToDevice(bleDevice);
 
-            setTitle("Heart Chart from HRM Bluetooth");
+            setTitle("Heart Chart from HRM Bluetooth: -- "+bleDevice.getName());
         }
         else {
             mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);

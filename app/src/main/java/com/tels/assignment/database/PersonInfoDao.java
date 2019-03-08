@@ -25,7 +25,7 @@ public interface PersonInfoDao {
 
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateProduct(GraphItem productItem);
+    void updateData(GraphItem graphItem);
 
     @Query("delete from graphs")
     void removeAllData();
