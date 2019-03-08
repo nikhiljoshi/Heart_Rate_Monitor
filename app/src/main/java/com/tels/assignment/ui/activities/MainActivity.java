@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 .setReConnectCount(1, 5000)
                 .setConnectOverTime(20000)
                 .setOperateTimeout(5000);
-
+        BleManager.getInstance().enableBluetooth();
 
         startScan();
 
@@ -174,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
 
                                         final int heartRate = characteristic.getIntValue(format, 1);
                                         Log.e("----","----"+heartRate);
+
+
                                     }
                                 });
                             }
@@ -228,7 +230,11 @@ public class MainActivity extends AppCompatActivity {
         result.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                connect(list.get(position));
+                //connect(list.get(position));
+
+                Intent intent = new Intent(MainActivity.this, HeartChartActivity.class);
+                intent.putExtra("BleDevice", list.get(position));
+                startActivity(intent);
             }
         });
     }

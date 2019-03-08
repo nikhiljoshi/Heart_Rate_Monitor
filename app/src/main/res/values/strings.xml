@@ -38,4 +38,5 @@
     <string name="connect_disconnected">Connection Disconnected</string>
     <string name="connect_success">Connection Success</string>
 
+    <string name="dash">-</string>
 </resources>
