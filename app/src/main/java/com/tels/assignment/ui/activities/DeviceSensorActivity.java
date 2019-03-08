@@ -2,6 +2,7 @@ package com.tels.assignment.ui.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DeviceSensorActivity extends AppCompatActivity implements SensorEventListener {
     @BindView(R.id.txtheartrate)
@@ -24,6 +26,7 @@ public class DeviceSensorActivity extends AppCompatActivity implements SensorEve
     private boolean isSensorPresent = false;
     private SensorManager mSensorManager;
     private Sensor mSensor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,15 @@ public class DeviceSensorActivity extends AppCompatActivity implements SensorEve
         } else {
             txtHeartRate.setText("Heart rate sensor is not present!");
         }
+
+
+    }
+
+    @OnClick(R.id.showchart)
+    void chartButtonClicked()
+    {
+        Intent intent = new Intent(DeviceSensorActivity.this, HeartChartActivity.class);
+        startActivity(intent);
     }
 
     @Override

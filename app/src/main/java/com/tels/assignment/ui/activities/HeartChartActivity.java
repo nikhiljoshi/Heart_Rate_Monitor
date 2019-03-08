@@ -4,7 +4,12 @@ package com.tels.assignment.ui.activities;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
+import android.content.Context;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
@@ -39,10 +44,13 @@ import static com.tels.assignment.ui.activities.MainActivity.UUID_HEART_RATE_MEA
 import static com.tels.assignment.utility.SampleGattAttributes.HEART_RATE_MEASUREMENT1;
 
 public class HeartChartActivity extends AppCompatActivity implements
-        OnChartValueSelectedListener {
+        OnChartValueSelectedListener, SensorEventListener {
 
     private LineChart mLineChart;
     private  BleDevice bleDevice;
+    private boolean isSensorPresent = false;
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +60,21 @@ public class HeartChartActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_linechart);
 
         Bundle extras = getIntent().getExtras();
-        bleDevice = (BleDevice) extras.getParcelable("BleDevice");
-        connectToDevice(bleDevice);
+        if(extras!=null) {
+            bleDevice = (BleDevice) extras.getParcelable("BleDevice");
+            connectToDevice(bleDevice);
 
-        setTitle("Heart Chart");
+            setTitle("Heart Chart from HRM Bluetooth");
+        }
+        else {
+            mSensorManager = (SensorManager) this.getSystemService(Context.SENSOR_SERVICE);
 
+            if (mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE) != null) {
+                mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
+                mSensorManager.registerListener(HeartChartActivity.this, mSensor, 3);
+                isSensorPresent = true;
+            }
+        }
         initChartView();
 
     }
@@ -303,11 +321,6 @@ public class HeartChartActivity extends AppCompatActivity implements
 
                 String name = bleDevice.getName();
                 String mac = bleDevice.getMac();
-
-
-
-
-
             }
 
             @Override
@@ -318,4 +331,20 @@ public class HeartChartActivity extends AppCompatActivity implements
         });
     }
 
+
+
+    @Override
+    public void onSensorChanged (SensorEvent event){
+        if (isSensorPresent) {
+            if ((int) event.values[0] != 0) {
+                //txtHeartRate.setText("Current heart rate: " + Math.round(event.values[0]) + " BPM");
+                Toast.makeText(HeartChartActivity.this, getString(R.string.heart_rate)+Math.round(event.values[0]), Toast.LENGTH_LONG).show();
+                addEntry(Math.round(event.values[0]));
+
+            }
+        }
+    }
+
+    @Override
+    public void onAccuracyChanged (Sensor sensor,int i){ }
 }

@@ -45,4 +45,5 @@
     <string name="sensor_activity_message">Keep your finger on heart rate sensor and wait...</string>
     <string name="loading_msg">Loading...</string>
     <string name="msg_wait">Please wait scanning for Bluetooth devices.</string>
+    <string name="show_chart">Show my ECG Chart</string>
 </resources>
