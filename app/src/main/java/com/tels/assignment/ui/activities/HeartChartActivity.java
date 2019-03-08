@@ -41,7 +41,7 @@ import static com.tels.assignment.utility.SampleGattAttributes.HEART_RATE_MEASUR
 public class HeartChartActivity extends AppCompatActivity implements
         OnChartValueSelectedListener {
 
-    private LineChart chart;
+    private LineChart mLineChart;
     private  BleDevice bleDevice;
 
     @Override
@@ -53,66 +53,72 @@ public class HeartChartActivity extends AppCompatActivity implements
 
         Bundle extras = getIntent().getExtras();
         bleDevice = (BleDevice) extras.getParcelable("BleDevice");
-        connect(bleDevice);
+        connectToDevice(bleDevice);
 
         setTitle("Heart Chart");
 
-        chart = findViewById(R.id.chart1);
-        chart.setOnChartValueSelectedListener(this);
+        initChartView();
+
+    }
+
+    private  void initChartView()
+    {
+        mLineChart = findViewById(R.id.chart1);
+        mLineChart.setOnChartValueSelectedListener(this);
 
         // enable description text
-        chart.getDescription().setEnabled(true);
+        mLineChart.getDescription().setEnabled(true);
         Description description = new Description();
         description.setText("heart rate");
-        chart.setDescription(description);
+        mLineChart.setDescription(description);
 
         // enable touch gestures
-        chart.setTouchEnabled(true);
+        mLineChart.setTouchEnabled(true);
 
         // enable scaling and dragging
-        chart.setDragEnabled(true);
-        chart.setScaleEnabled(true);
-        chart.setDrawGridBackground(false);
+        mLineChart.setDragEnabled(true);
+        mLineChart.setScaleEnabled(true);
+        mLineChart.setDrawGridBackground(false);
 
         // if disabled, scaling can be done on x- and y-axis separately
-        chart.setPinchZoom(true);
+        mLineChart.setPinchZoom(true);
 
         // set an alternative background color
-        chart.setBackgroundColor(Color.LTGRAY);
+        mLineChart.setBackgroundColor(Color.LTGRAY);
 
         LineData data = new LineData();
         data.setValueTextColor(Color.WHITE);
 
         // add empty extras
-        chart.setData(data);
+        mLineChart.setData(data);
 
         // get the legend (only possible after setting extras)
-        Legend l = chart.getLegend();
+        Legend l = mLineChart.getLegend();
 
         // modify the legend ...
         l.setForm(LegendForm.LINE);
         l.setTextColor(Color.WHITE);
 
-        XAxis xl = chart.getXAxis();
+        XAxis xl = mLineChart.getXAxis();
         xl.setTextColor(Color.WHITE);
         xl.setDrawGridLines(false);
         xl.setAvoidFirstLastClipping(true);
         xl.setEnabled(true);
 
-        YAxis leftAxis = chart.getAxisLeft();
+        YAxis leftAxis = mLineChart.getAxisLeft();
         leftAxis.setTextColor(Color.WHITE);
         leftAxis.setAxisMaximum(160f);
         leftAxis.setAxisMinimum(60f);
         leftAxis.setDrawGridLines(true);
 
-        YAxis rightAxis = chart.getAxisRight();
+        YAxis rightAxis = mLineChart.getAxisRight();
         rightAxis.setEnabled(false);
-
     }
+
 
     private void addEntry(int heartRate) {
 
-        LineData data = chart.getData();
+        LineData data = mLineChart.getData();
 
         if (data != null) {
 
@@ -127,18 +133,18 @@ public class HeartChartActivity extends AppCompatActivity implements
             data.addEntry(new Entry(set.getEntryCount(), (float) heartRate), 0);
             data.notifyDataChanged();
 
-            // let the chart know it's data has changed
-            chart.notifyDataSetChanged();
+            // let the mLineChart know it's data has changed
+            mLineChart.notifyDataSetChanged();
 
             // limit the number of visible entries
-            chart.setVisibleXRangeMaximum(120);
-            // chart.setVisibleYRange(30, AxisDependency.LEFT);
+            mLineChart.setVisibleXRangeMaximum(120);
+            // mLineChart.setVisibleYRange(30, AxisDependency.LEFT);
 
             // move to the latest entry
-            chart.moveViewToX(data.getEntryCount());
+            mLineChart.moveViewToX(data.getEntryCount());
 
-            // this automatically refreshes the chart (calls invalidate())
-            // chart.moveViewTo(data.getXValCount()-7, 55f,
+            // this automatically refreshes the mLineChart (calls invalidate())
+            // mLineChart.moveViewTo(data.getXValCount()-7, 55f,
             // AxisDependency.LEFT);
         }
     }
@@ -223,7 +229,7 @@ public class HeartChartActivity extends AppCompatActivity implements
 
 
 
-    private void connect(final BleDevice bleDevice) {
+    private void connectToDevice(final BleDevice bleDevice) {
         BleManager.getInstance().connect(bleDevice, new BleGattCallback() {
             @Override
             public void onStartConnect() {

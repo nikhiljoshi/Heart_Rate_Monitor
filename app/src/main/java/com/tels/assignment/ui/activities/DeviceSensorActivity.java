@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DeviceSensorActivity extends AppCompatActivity implements SensorEventListener {
-    @BindView(R.id.HeartRateTxt)
+    @BindView(R.id.txtheartrate)
     TextView txtHeartRate;
     private boolean isSensorPresent = false;
     private SensorManager mSensorManager;
@@ -42,7 +42,7 @@ public class DeviceSensorActivity extends AppCompatActivity implements SensorEve
 
         if (mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE) != null) {
             mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_HEART_RATE);
-            mSensorManager.registerListener(this, mSensor, 3); //I am using "3" as it is said to provide best accuracy ¯\_(ツ)_/¯
+            mSensorManager.registerListener(this, mSensor, 3);
             isSensorPresent = true;
         } else {
             txtHeartRate.setText("Heart rate sensor is not present!");

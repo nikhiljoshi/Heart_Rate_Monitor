@@ -6,11 +6,11 @@
     tools:context=".ui.activities.DeviceSensorActivity">
 
   <TextView
-      android:id="@+id/HeartRateTxt"
+      android:id="@+id/txtheartrate"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
       android:textSize="17sp"
-      android:text="Keep your finger on heart rate sensor and wait..." />
+      android:text="@string/sensor_activity_message" />
 
 </LinearLayout>
