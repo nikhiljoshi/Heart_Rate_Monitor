@@ -286,7 +286,7 @@ public class HeartChartActivity extends AppCompatActivity implements
                                         final int heartRate = characteristic.getIntValue(format, 1);
                                         Log.e("----","----"+heartRate);
                                         addEntry(heartRate);
-
+                                        Toast.makeText(HeartChartActivity.this, getString(R.string.heart_rate)+heartRate, Toast.LENGTH_LONG).show();
 
                                     }
                                 });

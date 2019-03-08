@@ -37,6 +37,7 @@
     <string name="connect_fail">Connection Failed</string>
     <string name="connect_disconnected">Connection Disconnected</string>
     <string name="connect_success">Connection Success</string>
+    <string name="heart_rate">Your current Heart Rate is :</string>
 
     <string name="dash">-</string>
 </resources>

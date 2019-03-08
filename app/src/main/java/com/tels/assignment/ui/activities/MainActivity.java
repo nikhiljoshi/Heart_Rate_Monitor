@@ -69,11 +69,20 @@ public class MainActivity extends AppCompatActivity {
 
         startScan();
 
+        start.setOnClickListener(v -> startScan());
+
+        stop.setOnClickListener(v -> stopScan());
+
     }
 
     @Override protected void onDestroy() {
         super.onDestroy();
 
+    }
+
+    private void stopScan()
+    {
+        BleManager.getInstance().cancelScan();
     }
 
     @Override public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
