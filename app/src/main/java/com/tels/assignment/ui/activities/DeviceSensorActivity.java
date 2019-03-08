@@ -28,7 +28,7 @@ public class DeviceSensorActivity extends AppCompatActivity implements SensorEve
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_sensor);
         ButterKnife.bind(this);
 
         if (Build.VERSION.SDK_INT >= 23) {

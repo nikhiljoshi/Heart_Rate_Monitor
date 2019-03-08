@@ -2,7 +2,7 @@
     <string name="app_name">Heart Rate Monitor</string>
 /
 
-    <string name="battery_capacity">Capacity</string>
+    <string name="battery_capacity">Battery Capacity</string>
     <string name="battery_health">Health</string>
     <string name="battery_health_cold">Cold</string>
     <string name="battery_health_dead">Dead</string>
@@ -40,4 +40,6 @@
     <string name="heart_rate">Your current Heart Rate is :</string>
 
     <string name="dash">-</string>
+
+    <string name="sensor_message">Heart rate from Device Sensor</string>
 </resources>

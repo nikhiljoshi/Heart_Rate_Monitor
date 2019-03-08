@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     public final static UUID UUID_HEART_RATE_MEASUREMENT = UUID.fromString(SampleGattAttributes.HEART_RATE_MEASUREMENT_CHAR);
     private Button start;
     private Button stop;
+    private Button sensor;
+    private Button battery;
     private ListView result;
     private Toolbar toolbar;
     private RxBluetooth rxBluetooth;
@@ -56,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_search);
         start = (Button) findViewById(R.id.start);
         stop = (Button) findViewById(R.id.stop);
+        sensor = (Button) findViewById(R.id.sensorScan);
+        battery = (Button) findViewById(R.id.batteryinfo);
+
         result = (ListView) findViewById(R.id.result);
 
 
@@ -73,12 +78,23 @@ public class MainActivity extends AppCompatActivity {
 
         stop.setOnClickListener(v -> stopScan());
 
+        sensor.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, DeviceSensorActivity.class);
+            startActivity(intent);
+        });
+        battery.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, BatteryInformationActivity.class);
+            startActivity(intent);
+        });
+
+
     }
 
     @Override protected void onDestroy() {
         super.onDestroy();
 
     }
+
 
     private void stopScan()
     {
