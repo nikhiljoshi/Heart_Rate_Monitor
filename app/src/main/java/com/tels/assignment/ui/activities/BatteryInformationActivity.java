@@ -1,6 +1,5 @@
 package com.tels.assignment.ui.activities;
 
-import android.support.v7.app.AppCompatActivity;
 
 
 import android.content.BroadcastReceiver;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import com.tels.assignment.R;
 
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
