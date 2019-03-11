@@ -221,9 +221,11 @@ public class HeartChartActivity extends AppCompatActivity implements
     }
 
 
-
-
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
